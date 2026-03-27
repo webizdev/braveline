@@ -42,3 +42,23 @@ CREATE POLICY "anon_all" ON "braveline_kategori" FOR ALL TO anon, authenticated 
 
 DROP POLICY IF EXISTS "anon_all" ON "braveline_footer_info";
 CREATE POLICY "anon_all" ON "braveline_footer_info" FOR ALL TO anon, authenticated USING (true) WITH CHECK (true);
+
+-- Fix Storage RLS Policies for Braveline buckets
+-- Applied on 2026-03-27
+
+-- Allow public insert/upload to braveline buckets
+CREATE POLICY "Braveline public upload" ON storage.objects
+FOR INSERT TO public WITH CHECK (bucket_id IN ('braveline-katalog', 'braveline-carousel', 'braveline-avatar'));
+
+-- Allow public read access to braveline buckets
+CREATE POLICY "Braveline public read" ON storage.objects
+FOR SELECT TO public USING (bucket_id IN ('braveline-katalog', 'braveline-carousel', 'braveline-avatar'));
+
+-- Allow public update access to braveline buckets
+CREATE POLICY "Braveline public update" ON storage.objects
+FOR UPDATE TO public USING (bucket_id IN ('braveline-katalog', 'braveline-carousel', 'braveline-avatar'));
+
+-- Allow public delete access to braveline buckets
+CREATE POLICY "Braveline public delete" ON storage.objects
+FOR DELETE TO public USING (bucket_id IN ('braveline-katalog', 'braveline-carousel', 'braveline-avatar'));
+
