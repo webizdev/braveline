@@ -1099,10 +1099,9 @@ Chat WhatsApp Sekarang — GRATIS
       if (!catError && catData && catData.length > 0) {
         const filterContainer = document.getElementById('katalogFilter');
         if (filterContainer) {
-          let htmlStr = '';
-          catData.forEach((cat, index) => {
-            const isActive = index === 0 ? 'active' : '';
-            htmlStr += `<button class="kf-btn ${isActive}" data-cat="${cat.kode_filter}">${cat.emoji} ${cat.nama}</button>\n`;
+          let htmlStr = `<button class="kf-btn active" data-cat="semua">✨ Semua</button>\n`;
+          catData.forEach(cat => {
+            htmlStr += `<button class="kf-btn" data-cat="${cat.kode_filter}">${cat.emoji} ${cat.nama}</button>\n`;
           });
           filterContainer.innerHTML = htmlStr;
 
@@ -1117,7 +1116,7 @@ Chat WhatsApp Sekarang — GRATIS
           };
           const filterGallery = (cat) => {
             items.forEach(item => {
-              if(item.dataset.cat === cat) item.classList.remove('hidden');
+              if(cat === 'semua' || item.dataset.cat === cat) item.classList.remove('hidden');
               else item.classList.add('hidden');
             });
             updateCount();
@@ -1132,7 +1131,7 @@ Chat WhatsApp Sekarang — GRATIS
           });
           
           // Trigger first filter
-          if(catData[0]) filterGallery(catData[0].kode_filter);
+          filterGallery('semua');
         }
       }
 
