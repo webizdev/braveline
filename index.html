@@ -1093,7 +1093,7 @@ Chat WhatsApp Sekarang — GRATIS
       if (katalogGrid && katalogData && katalogData.length > 0) {
         let gridHtml = '';
         katalogData.forEach(product => {
-          const catCode = catMap[product.kategori] || '0';
+          const catCode = catMap[product.kategori] || product.kategori || '0';
           gridHtml += `<div class="kg-item" data-cat="${catCode}" data-id="${product.id}"><img decoding="async" src="${product.image_url}" loading="lazy" alt="${product.nama_produk || 'Jersey Custom'}"></div>`;
         });
         katalogGrid.innerHTML = gridHtml;
