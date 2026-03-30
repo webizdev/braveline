@@ -1342,9 +1342,10 @@ Chat WhatsApp Sekarang — GRATIS
       if (!catError && catData && catData.length > 0) {
         const filterContainer = document.getElementById('katalogFilter');
         if (filterContainer) {
-          let htmlStr = `<button class="kf-btn active" data-cat="semua">✨ Semua</button>\n`;
-          catData.forEach(cat => {
-            htmlStr += `<button class="kf-btn" data-cat="${cat.kode_filter}">${cat.emoji} ${cat.nama}</button>\n`;
+          let htmlStr = ``;
+          catData.forEach((cat, index) => {
+            const activeClass = (index === 0) ? 'active' : '';
+            htmlStr += `<button class="kf-btn ${activeClass}" data-cat="${cat.kode_filter}">${cat.emoji} ${cat.nama}</button>\n`;
           });
           filterContainer.innerHTML = htmlStr;
 
@@ -1373,8 +1374,8 @@ Chat WhatsApp Sekarang — GRATIS
             });
           });
           
-          // Trigger first filter
-          filterGallery('semua');
+          // Trigger first filter with the first category's code
+          filterGallery(catData[0].kode_filter);
         }
       }
 
