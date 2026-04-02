@@ -207,6 +207,13 @@
             opacity: 0; transition: 0.3s; z-index: 2;
         }
         .catalog-item:hover::before { opacity: 1; }
+        .catalog-item.hidden-by-limit { display: none !important; }
+
+        .load-more-btn {
+            margin: 40px auto 0;
+            display: none;
+            justify-content: center;
+        }
 
         /* Skeleton Loader for Catalog */
         .skeleton {
@@ -411,6 +418,13 @@
                        class="btn btn-primary" style="background: var(--accent); color: var(--bg-dark);">
                        🎨 Punya Desain Sendiri? Chat Sekarang
                     </a>
+                </div>
+
+                <!-- Load More -->
+                <div style="text-align: center;">
+                    <button id="loadMoreBtn" class="btn btn-outline load-more-btn">
+                        🔍 Lihat Desain Lainnya
+                    </button>
                 </div>
             </div>
         </section>
@@ -650,30 +664,52 @@
                             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
                             btn.classList.add('active');
                             const filterVal = btn.dataset.cat;
-                            let count = 0;
+                            
+                            const cols = window.innerWidth > 1024 ? 5 : (window.innerWidth > 600 ? 3 : 2);
+                            const limit = cols * 2;
+                            let totalFiltered = 0;
+                            let shownCount = 0;
                             
                             document.querySelectorAll('.catalog-item').forEach(item => {
+                                item.classList.remove('hidden-by-limit');
                                 if(filterVal === 'semua' || item.dataset.cat === filterVal) {
-                                    item.style.display = 'block';
-                                    count++;
+                                    totalFiltered++;
+                                    if(shownCount < limit) {
+                                        item.style.display = 'block';
+                                        shownCount++;
+                                    } else {
+                                        item.style.display = 'none';
+                                        item.classList.add('hidden-by-limit');
+                                    }
                                 } else {
                                     item.style.display = 'none';
                                 }
                             });
 
-                            document.getElementById('katalog-count').innerText = `Menampilkan ${count} Desain`;
+                            document.getElementById('katalog-count').innerText = `Menampilkan ${totalFiltered} Desain`;
                             const emptyCta = document.getElementById('katalog-empty-cta');
+                            const loadMoreBtn = document.getElementById('loadMoreBtn');
                             const grid = document.getElementById('katalogGrid');
                             
-                            if (count === 0) {
+                            if (totalFiltered === 0) {
                                 emptyCta.style.display = 'block';
                                 grid.style.display = 'none';
+                                loadMoreBtn.style.display = 'none';
                             } else {
                                 emptyCta.style.display = 'none';
                                 grid.style.display = 'grid';
+                                loadMoreBtn.style.display = totalFiltered > limit ? 'inline-flex' : 'none';
                             }
                         }
                     });
+
+                    document.getElementById('loadMoreBtn').onclick = function() {
+                        document.querySelectorAll('.catalog-item.hidden-by-limit').forEach(el => {
+                            el.classList.remove('hidden-by-limit');
+                            el.style.display = 'block';
+                        });
+                        this.style.display = 'none';
+                    };
 
                     // Trigger Futsal by default (usually first filter)
                     if (document.querySelector('.filter-btn')) {
