@@ -55,27 +55,56 @@
 
         /* Trust Bar Marquee */
         .trust-bar {
-            background: rgba(0, 71, 171, 0.2);
-            border-bottom: 1px solid var(--glass-border);
-            padding: 12px 0;
+            background: var(--primary);
+            color: #fff;
+            padding: 10px 0;
             overflow: hidden;
             white-space: nowrap;
+            position: relative;
+            z-index: 1001;
         }
         .trust-scroll {
             display: inline-block;
-            animation: marquee 30s linear infinite;
+            animation: marquee 40s linear infinite;
         }
         .trust-item {
             display: inline-flex;
             align-items: center;
-            gap: 12px;
-            margin-right: 60px;
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--text-muted);
+            gap: 10px;
+            margin-right: 50px;
+            font-size: 13px;
+            font-weight: 800;
+            text-transform: uppercase;
         }
-        .trust-item span { color: var(--accent); }
         @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        /* Gallery Section */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 15px;
+        }
+        .gallery-item {
+            border-radius: 12px;
+            overflow: hidden;
+            aspect-ratio: 1;
+            border: 1px solid var(--glass-border);
+            transition: 0.3s;
+        }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
+        .gallery-item:hover { transform: scale(1.03); border-color: var(--accent); }
+
+        /* Branches */
+        .branch-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 40px; }
+        .branch-card {
+            background: var(--bg-card);
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+        }
+        .branch-city { font-size: 24px; color: var(--accent); margin-bottom: 15px; }
+        .branch-info { font-size: 14px; color: var(--text-muted); margin-bottom: 20px; }
+        @media (max-width: 768px) { .branch-grid { grid-template-columns: 1fr; } }
 
         /* Modern Hero Section */
         .hero {
@@ -401,79 +430,196 @@
                 </div>
 
                 <p id="katalog-count" class="sport-font" style="text-align: center; color: var(--accent); margin-bottom: 30px; font-size: 18px; letter-spacing: 1px;"></p>
+    <!-- 1. Ticker / Trust Bar -->
+    <div class="trust-bar" id="trustBar">
+        <div class="trust-scroll" id="trustScroll">
+            <!-- Dynamic items -->
+        </div>
+    </div>
 
-                <div class="catalog-grid" id="katalogGrid">
-                    <!-- Skeletons for Flicker-free loading -->
-                    <div class="catalog-item skeleton"></div>
-                    <div class="catalog-item skeleton"></div>
-                    <div class="catalog-item skeleton"></div>
-                    <div class="catalog-item skeleton"></div>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container nav-wrap">
+            <a href="#" class="nav-logo">
+                <img src="images/logo.png" alt="Braveline" id="dyn_logo" style="height: 40px;">
+            </a>
+            <div class="nav-links">
+                <a href="#catalog" class="nav-link">Katalog</a>
+                <a href="#gallery" class="nav-link">Hasil Produksi</a>
+                <a href="#pricing" class="nav-link">Harga</a>
+                <a href="#order" class="nav-link">Cara Order</a>
+            </div>
+            <a href="#" class="btn btn-primary" id="dyn_nav_cta" style="padding: 10px 24px; font-size: 14px;">
+                ORDER SEKARANG
+            </a>
+        </div>
+    </nav>
+
+    <!-- 2. Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-bg" id="heroBg"></div>
+        <div class="container" style="position: relative; z-index: 2;">
+            <div class="hero-badge" id="heroBadge">VENDOR JERSEY TERKEMUKA</div>
+            <h1 class="hero-title sport-font" id="heroTitle">LEVEL UP <br><span class="highlight">YOUR GAME</span></h1>
+            <p class="hero-subtitle" id="heroDesc">Pabrik jersey custom printing dengan teknologi terbaru. Hasil tajam, bahan premium, dan proses produksi super cepat.</p>
+            <div class="hero-btns">
+                <a href="#catalog" class="btn btn-primary">Lihat Katalog</a>
+                <a href="#pricing" class="btn btn-outline" id="heroVideoBtn">Cek Harga</a>
+            </div>
+            
+            <div class="hero-stats">
+                <div class="stat-card">
+                    <span class="num highlight" id="stat1_val">10K+</span>
+                    <span class="label" id="stat1_lbl">Produk Terjual</span>
                 </div>
-
-                <!-- Empty State CTA -->
-                <div id="katalog-empty-cta" style="display: none; text-align: center; padding: 60px 20px; background: var(--bg-card); border-radius: 12px; border: 1px dashed var(--glass-border); margin-top: 20px;">
-                    <h3 class="sport-font" style="font-size: 24px; margin-bottom: 20px;">DESAIN BELUM TERSEDIA</h3>
-                    <p style="color: var(--text-muted); margin-bottom: 30px;">Punya referensi desain sendiri? Kami bisa buatkan secara gratis!</p>
-                    <a href="https://wa.me/6285199227070?text=Halo%20Braveline%2C%20saya%20punya%20desain%20sendiri%20mau%20order" 
-                       class="btn btn-primary" style="background: var(--accent); color: var(--bg-dark);">
-                       🎨 Punya Desain Sendiri? Chat Sekarang
-                    </a>
+                <div class="stat-card">
+                    <span class="num highlight" id="stat2_val">500+</span>
+                    <span class="label" id="stat2_lbl">Tim Olahraga</span>
                 </div>
-
-                <!-- Load More -->
-                <div style="text-align: center;">
-                    <button id="loadMoreBtn" class="btn btn-outline load-more-btn">
-                        🔍 Lihat Desain Lainnya
-                    </button>
+                <div class="stat-card">
+                    <span class="num highlight" id="stat3_val">4.9/5</span>
+                    <span class="label" id="stat3_lbl">Rating Kepuasan</span>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Pricing -->
-        <section class="pricing" id="pricing">
-            <div class="container">
-                <h2 class="section-title">HARGA <span class="highlight">TRANSPARAN</span></h2>
-                <p class="section-subtitle">Pilihan paket hemat langsung dari pusat produksi</p>
-                <div class="pricing-grid" id="dyn_pricing_grid">
-                    <!-- Dynamic Pricing -->
+    <!-- 3. Catalog Section -->
+    <section class="catalog" id="catalog">
+        <div class="container text-center">
+            <h2 class="section-title">KATALOG <span class="highlight">DESAIN</span></h2>
+            <p class="section-subtitle">Pilih desain favorit Anda atau buat desain baru secara gratis</p>
+            <div id="katalog-count" style="margin-bottom: 20px; font-weight: 800; color: var(--accent);">
+                Memuat data...
+            </div>
+            
+            <div class="filter-wrap" id="katalogFilter">
+                <!-- Dynamic Filters -->
+            </div>
+
+            <div class="catalog-grid" id="katalogGrid">
+                <!-- Skeleton Loaders -->
+                <div class="catalog-item skeleton"></div>
+                <div class="catalog-item skeleton"></div>
+                <div class="catalog-item skeleton"></div>
+                <div class="catalog-item skeleton"></div>
+                <div class="catalog-item skeleton"></div>
+            </div>
+
+            <!-- Empty State CTA -->
+            <div id="katalog-empty-cta" style="display: none; text-align: center; padding: 60px 20px; background: var(--bg-card); border-radius: 12px; border: 1px dashed var(--glass-border); margin-top: 20px;">
+                <h3 class="sport-font" style="font-size: 24px; margin-bottom: 20px;">DESAIN BELUM TERSEDIA</h3>
+                <p style="color: var(--text-muted); margin-bottom: 30px;">Punya referensi desain sendiri? Kami bisa buatkan secara gratis!</p>
+                <a href="#" class="btn btn-primary btn-empty-wa" style="background: var(--accent); color: var(--bg-dark);">
+                   🎨 Punya Desain Sendiri? Chat Sekarang
+                </a>
+            </div>
+
+            <!-- Load More -->
+            <div style="text-align: center;">
+                <button id="loadMoreBtn" class="btn btn-outline load-more-btn">
+                    🔍 Lihat Desain Lainnya
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Hasil Nyata (Gallery) -->
+    <section class="section-pad" id="gallery" style="background: #000814;">
+        <div class="container">
+            <h2 class="section-title">HASIL <span class="highlight">NYATA</span></h2>
+            <p class="section-subtitle">Bukti kualitas produksi Braveline yang telah dikirim ke seluruh Indonesia</p>
+            <div class="gallery-grid" id="galleryGrid">
+                <!-- Dynamic Photos -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Pricing Section -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <h2 class="section-title">HARGA <span class="highlight">PAKET</span></h2>
+            <p class="section-subtitle">Pilihan paket hemat dengan kualitas premium yang terjangkau</p>
+            <div class="pricing-grid" id="pricingGrid">
+                <!-- Dynamic Pricing -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. USP / Features -->
+    <section class="usp" id="features">
+        <div class="container">
+            <h2 class="section-title">KENAPA <span class="highlight">KAMI?</span></h2>
+            <p class="section-subtitle">Kami memberikan standar kualitas terbaik untuk setiap helai jersey Anda</p>
+            <div class="usp-grid" id="uspGrid">
+                <!-- Dynamic USP -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. Order Process -->
+    <section class="section-pad" id="order" style="background: #000B1D;">
+        <div class="container">
+            <h2 class="section-title">CARA <span class="highlight">ORDER</span></h2>
+            <p class="section-subtitle">Proses pemesanan yang mudah, cepat, dan transparan</p>
+            <div class="process-grid" id="orderProcess">
+                <!-- Dynamic Steps -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. Testimonials -->
+    <section class="section-pad" id="testimonials">
+        <div class="container">
+            <h2 class="section-title">KATA <span class="highlight">MEREKA</span></h2>
+            <p class="section-subtitle">Pendapat ribuan pelanggan yang telah mempercayakan timnya kepada kami</p>
+            <div class="usp-grid" id="testimonialGrid">
+                <!-- Dynamic testimonials -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. FAQ Section -->
+    <section class="section-pad" id="faq" style="background: #000814;">
+        <div class="container">
+            <h2 class="section-title">TANYA <span class="highlight">JAWAB</span></h2>
+            <p class="section-subtitle">Hal-hal yang sering ditanyakan oleh pelanggan kami</p>
+            <div class="usp-grid" id="faqList">
+                <!-- Dynamic FAQ -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 10. Regional Branches -->
+    <section class="section-pad" id="branches">
+        <div class="container">
+            <h2 class="section-title">CABANG <span class="highlight">REGIONAL</span></h2>
+            <p class="section-subtitle">Kunjungi workshop kami atau hubungi admin terdekat di kota Anda</p>
+            <div class="branch-grid">
+                <div class="branch-card">
+                    <div class="branch-city sport-font">BANDUNG OFFICE</div>
+                    <p class="branch-info">Pusat Produksi & Workshop Utama. Melayani pengiriman ke seluruh Indonesia dengan cargo terbaik.</p>
+                    <a href="https://wa.me/6285199227070" class="btn btn-primary" style="width: 100%; justify-content: center;">Chat Admin Bandung</a>
+                </div>
+                <div class="branch-card" style="border-color: var(--accent);">
+                    <div class="branch-city sport-font">KALIMANTAN OFFICE</div>
+                    <p class="branch-info">Cabang Kalimantan untuk pelayanan lebih cepat dan ongkir lebih hemat di wilayah Borneo.</p>
+                    <a href="https://wa.me/6285651111624" class="btn btn-outline" style="width: 100%; justify-content: center;">Chat Admin Kalimantan</a>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Process -->
-        <section class="section-pad">
-            <div class="container">
-                <h2 class="section-title">CARA <span class="highlight">ORDER</span></h2>
-                <p class="section-subtitle">Simpel dan transparan tanpa ribet</p>
-                <div class="process-grid" id="dyn_process_grid">
-                    <!-- Dynamic Process -->
-                </div>
-            </div>
-        </section>
-
-        <!-- Testimonials -->
-        <section class="section-pad" id="testimonials" style="background: rgba(255,255,255,0.02);">
-            <div class="container">
-                <h2 class="section-title">APA KATA <span class="highlight">MEREKA?</span></h2>
-                <p class="section-subtitle">Ribuan tim telah mempercayakan jersey mereka kepada kami</p>
-                <div class="usp-grid" id="dyn_testimonial_grid">
-                    <!-- Dynamic Testimonials (using same grid as USP for consistency) -->
-                </div>
-            </div>
-        </section>
-
-        <!-- FAQ -->
-        <section class="section-pad" id="faq">
-            <div class="container">
-                <h2 class="section-title">PERTANYAAN <span class="highlight">UMUM</span></h2>
-                <p class="section-subtitle">Hal-hal yang sering ditanyakan pelanggan kami</p>
-                <div class="pricing-grid" id="dyn_faq_grid" style="grid-template-columns: 1fr; max-width: 800px; margin: 0 auto; gap: 15px;">
-                    <!-- Dynamic FAQ -->
-                </div>
-            </div>
-        </section>
-
-    </main>
+    <!-- 11. Closing CTA -->
+    <section class="countdown-strip">
+        <div class="container">
+            <h2 class="sport-font" style="font-size: 32px; margin-bottom: 10px;">SIAP TAMPIL BEDA DENGAN JERSEY PREMIUM?</h2>
+            <p style="margin-bottom: 25px; opacity: 0.8;">Konsultasi desain gratis sekarang dan dapatkan penawaran spesial hari ini!</p>
+            <a href="https://wa.me/6285199227070" class="btn btn-primary" style="background: #fff; color: var(--primary);">
+                AMBIL PROMO SEKARANG
+            </a>
+        </div>
+    </section>
 
     <!-- Footer -->
     <footer class="footer">
@@ -533,118 +679,62 @@
 
         async function loadDynamicContent() {
             try {
-                // 1. Site Settings
-                const { data: settings } = await supabaseClient.from('braveline_site_settings').select('*');
-                const settingsMap = {};
-                if (settings) settings.forEach(s => settingsMap[s.key] = s.value);
-
-                const waNum = settingsMap['wa_number'] || '6285199227070';
+                const waNum = '6285199227070';
                 const waUrl = (text) => `https://wa.me/${waNum}?text=${encodeURIComponent(text || 'Halo Braveline, saya mau tanya-tanya')}`;
                 
-                document.querySelectorAll('a[href^="https://wa.me/"]').forEach(el => {
-                    const originalHref = el.getAttribute('href');
-                    const text = originalHref.includes('text=') ? decodeURIComponent(originalHref.split('text=')[1]) : '';
-                    el.href = waUrl(text);
-                });
+                // Fetch all data in parallel
+                const [
+                    { data: sitSet },
+                    { data: heroData },
+                    { data: uspData },
+                    { data: priceData },
+                    { data: catData },
+                    { data: katalogData },
+                    { data: testData },
+                    { data: faqData },
+                    { data: tickerData },
+                    { data: galleryData },
+                    { data: processData }
+                ] = await Promise.all([
+                    supabaseClient.from('braveline_site_settings').select('*').single(),
+                    supabaseClient.from('braveline_hero').select('*').single(),
+                    supabaseClient.from('braveline_usp_cards').select('*').order('urutan', { ascending: true }),
+                    supabaseClient.from('braveline_harga_paket').select('*').order('created_at', { ascending: true }),
+                    supabaseClient.from('braveline_kategori').select('*').eq('aktif', true).order('urutan', { ascending: true }),
+                    supabaseClient.from('braveline_katalog').select('*').order('created_at', { ascending: true }),
+                    supabaseClient.from('braveline_testimonial').select('*').limit(6),
+                    supabaseClient.from('braveline_faq').select('*').order('created_at', { ascending: true }),
+                    supabaseClient.from('braveline_trust_bar').select('*').order('urutan', { ascending: true }),
+                    supabaseClient.from('braveline_carousel_foto').select('*').limit(12),
+                    supabaseClient.from('braveline_proses_order').select('*').order('created_at', { ascending: true })
+                ]);
 
-                if (settingsMap['site_favicon_url']) {
-                    document.getElementById('dyn_favicon').href = settingsMap['site_favicon_url'];
-                    document.getElementById('dyn_apple_icon').href = settingsMap['site_favicon_url'];
+                // 1. Ticker / Marquee
+                if (tickerData) {
+                    const content = tickerData.map(t => `<div class="trust-item"><span>${t.icon}</span> ${t.highlight_text} ${t.description_text}</div>`).join('');
+                    document.getElementById('trustScroll').innerHTML = content + content; // Repeat for seamless loop
                 }
 
-                // 2. Hero
-                const { data: heroData } = await supabaseClient.from('braveline_hero').select('*');
+                // 2. Global Settings (Logo, Social)
+                if (sitSet) {
+                    document.getElementById('dyn_logo').src = sitSet.site_logo_url || 'images/logo.png';
+                }
+
+                // 3. Hero
                 if (heroData) {
-                    heroData.forEach(h => {
-                        if (h.key === 'hero_title_line1') document.getElementById('dyn_hero_title1').innerText = h.value;
-                        if (h.key === 'hero_title_line2') document.getElementById('dyn_hero_title2').innerText = h.value;
-                        if (h.key === 'hero_title_line3') document.getElementById('dyn_hero_title3').innerText = h.value;
-                        if (h.key === 'hero_subtitle') document.getElementById('dyn_hero_subtitle').innerText = h.value;
-                    });
+                    document.getElementById('heroBadge').innerText = heroData.badge_text;
+                    document.getElementById('heroTitle').innerHTML = heroData.headline.replace('|', '<br>');
+                    document.getElementById('heroDesc').innerText = heroData.subheadline;
+                    document.getElementById('heroBg').innerHTML = `<img src="${heroData.image_url}" loading="lazy">`;
+                    document.getElementById('stat1_val').innerText = heroData.stat1_val;
+                    document.getElementById('stat1_lbl').innerText = heroData.stat1_lbl;
+                    document.getElementById('stat2_val').innerText = heroData.stat2_val;
+                    document.getElementById('stat2_lbl').innerText = heroData.stat2_lbl;
+                    document.getElementById('stat3_val').innerText = heroData.stat3_val;
+                    document.getElementById('stat3_lbl').innerText = heroData.stat3_lbl;
                 }
 
-                // 3. Trust Bar
-                const { data: trustData } = await supabaseClient.from('braveline_trust_bar').select('*').order('urutan', { ascending: true });
-                if (trustData && trustData.length > 0) {
-                    const html = trustData.map(t => `<div class="trust-item">${t.icon} <span>${t.highlight_text}</span> ${t.description_text}</div>`).join('');
-                    document.getElementById('trustbar-container').innerHTML = html + html;
-                }
-
-                // 4. USP
-                const { data: uspData } = await supabaseClient.from('braveline_usp_cards').select('*').order('urutan', { ascending: true });
-                if (uspData) {
-                    document.getElementById('dyn_usp_grid').innerHTML = uspData.map(u => `
-                        <div class="usp-card">
-                            <div class="usp-icon">${u.icon}</div>
-                            <h3 class="usp-title">${u.title}</h3>
-                            <p class="usp-desc">${u.description}</p>
-                        </div>
-                    `).join('');
-                }
-
-                // 5. Pricing
-                const { data: prData } = await supabaseClient.from('braveline_harga_paket').select('*').order('urutan', { ascending: true });
-                if (prData) {
-                    document.getElementById('dyn_pricing_grid').innerHTML = prData.map(p => `
-                        <div class="pricing-card ${p.is_featured ? 'featured' : ''}">
-                            <div class="sport-font" style="font-size: 20px; color: ${p.is_featured ? '#fff' : 'var(--text-muted)'};">${p.nama_paket}</div>
-                            <div class="price-val">${Math.floor(p.harga_ecer/1000)}<span style="font-size: 20px;">RB</span></div>
-                            <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">Lusin: Rp ${parseInt(p.harga_lusin).toLocaleString()}${p.satuan_lusin}</p>
-                            <ul class="price-list">
-                                ${p.fitur_json ? p.fitur_json.map(f => `<li>${f}</li>`).join('') : '<li>Premium Quality</li>'}
-                            </ul>
-                            <a href="${waUrl('Halo Braveline, saya tertarik paket ' + p.nama_paket)}" class="btn ${p.is_featured ? 'btn-primary' : 'btn-outline'}" 
-                               style="width: 100%; justify-content: center; ${p.is_featured ? 'background: var(--accent); color: var(--bg-dark);' : ''}">
-                                ${p.is_featured ? 'Beli Sekarang' : 'Pilih Paket'}
-                            </a>
-                        </div>
-                    `).join('');
-                }
-
-                // 6. Process
-                const { data: procData } = await supabaseClient.from('braveline_proses_order').select('*').order('urutan', { ascending: true });
-                if (procData) {
-                    document.getElementById('dyn_process_grid').innerHTML = procData.map(s => `
-                        <div class="step">
-                            <div class="step-num">${s.urutan}</div>
-                            <h3 class="sport-font">${s.title}</h3>
-                            <p style="font-size: 13px; color: var(--text-muted);">${s.description}</p>
-                        </div>
-                    `).join('');
-                }
-
-                // 7. Testimonials
-                const { data: testData } = await supabaseClient.from('braveline_testimonials').select('*').order('created_at', { descending: true }).limit(3);
-                if (testData && testData.length > 0) {
-                    document.getElementById('dyn_testimonial_grid').innerHTML = testData.map(t => `
-                        <div class="usp-card">
-                            <div style="color: var(--accent); font-size: 24px; margin-bottom: 15px;">★★★★★</div>
-                            <p class="usp-desc" style="font-style: italic; margin-bottom: 20px;">"${t.quote}"</p>
-                            <h4 class="sport-font" style="font-size: 16px;">${t.author}</h4>
-                            <span style="font-size: 12px; color: var(--text-muted);">${t.organization}</span>
-                        </div>
-                    `).join('');
-                } else {
-                    document.getElementById('testimonials').style.display = 'none';
-                }
-
-                // 8. FAQ
-                const { data: faqData } = await supabaseClient.from('braveline_faq').select('*').order('urutan', { ascending: true });
-                if (faqData && faqData.length > 0) {
-                    document.getElementById('dyn_faq_grid').innerHTML = faqData.map(f => `
-                        <div class="usp-card" style="padding: 25px; text-align: left;">
-                            <h4 class="sport-font" style="font-size: 18px; margin-bottom: 10px; color: var(--accent);">${f.question}</h4>
-                            <p class="usp-desc">${f.answer}</p>
-                        </div>
-                    `).join('');
-                } else {
-                    document.getElementById('faq').style.display = 'none';
-                }
-
-                // 9. Katalog & Filter
-                const { data: catData } = await supabaseClient.from('braveline_kategori').select('*').eq('aktif', true).order('urutan', { ascending: true });
-                const { data: katalogData } = await supabaseClient.from('braveline_katalog').select('*').order('created_at', { ascending: true });
-
+                // 4. Katalog & Filter (Synchronized)
                 const productMap = {};
                 if (catData && katalogData) {
                     document.getElementById('katalogFilter').innerHTML = catData.map((cat, idx) => `
@@ -655,7 +745,6 @@
 
                     document.getElementById('katalogGrid').innerHTML = katalogData.map(p => {
                         productMap[p.id] = p;
-                        // Synchronize: p.kategori contains the kode_filter string (e.g. "0")
                         return `<div class="catalog-item" data-cat="${p.kategori}" onclick="openPopup('${p.id}')"><img src="${p.image_url}" loading="lazy"></div>`;
                     }).join('');
 
@@ -664,7 +753,6 @@
                             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
                             btn.classList.add('active');
                             const filterVal = btn.dataset.cat;
-                            
                             const cols = window.innerWidth > 1024 ? 5 : (window.innerWidth > 600 ? 3 : 2);
                             const limit = cols * 2;
                             let totalFiltered = 0;
@@ -711,15 +799,76 @@
                         this.style.display = 'none';
                     };
 
-                    // Trigger Futsal by default (usually first filter)
-                    if (document.querySelector('.filter-btn')) {
-                        document.querySelector('.filter-btn').click();
-                    }
+                    if (document.querySelector('.filter-btn')) document.querySelector('.filter-btn').click();
+                }
+
+                // 5. Gallery (Hasil Nyata)
+                if (galleryData) {
+                    document.getElementById('galleryGrid').innerHTML = galleryData.map(g => `
+                        <div class="gallery-item"><img src="${g.image_url}" loading="lazy"></div>
+                    `).join('');
+                }
+
+                // 6. Pricing Packages
+                if (priceData) {
+                    document.getElementById('pricingGrid').innerHTML = priceData.map((p, idx) => `
+                        <div class="pricing-card ${idx === 1 ? 'featured' : ''}">
+                            <div class="usp-tag sport-font" style="margin-bottom: 10px;">${p.nama_paket}</div>
+                            <div class="price-val">Rp ${p.harga_atasan/1000}k</div>
+                            <p style="color: var(--text-muted); margin-bottom: 20px;">Minimum order ${p.min_order} pcs</p>
+                            <ul class="price-list">
+                                ${p.fitur_list.split(',').map(f => `<li>${f.trim()}</li>`).join('')}
+                            </ul>
+                            <a href="${waUrl('Halo Braveline, saya mau tanya paket ' + p.nama_paket)}" class="btn ${idx === 1 ? 'btn-primary' : 'btn-outline'}" style="width: 100%; justify-content: center;">PILIH PAKET</a>
+                        </div>
+                    `).join('');
+                }
+
+                // 7. USP / Features
+                if (uspData) {
+                    document.getElementById('uspGrid').innerHTML = uspData.map(u => `
+                        <div class="usp-card">
+                            <div class="usp-icon">${u.icon}</div>
+                            <div class="usp-title sport-font">${u.title}</div>
+                            <p class="usp-desc">${u.description}</p>
+                        </div>
+                    `).join('');
+                }
+
+                // 8. Order Process
+                if (processData) {
+                    document.getElementById('orderProcess').innerHTML = processData.map((s, idx) => `
+                        <div class="step">
+                            <div class="step-num">${idx + 1}</div>
+                            <div class="usp-title sport-font" style="font-size: 18px;">${s.step_name}</div>
+                            <p class="usp-desc">${s.description || ''}</p>
+                        </div>
+                    `).join('');
+                }
+
+                // 9. Testimonials
+                if (testData) {
+                    document.getElementById('testimonialGrid').innerHTML = testData.map(t => `
+                        <div class="usp-card" style="padding: 30px;">
+                            <div style="color: #FFD700; margin-bottom: 10px;">★★★★★</div>
+                            <p class="usp-desc" style="font-style: italic; margin-bottom: 20px;">"${t.testimoni}"</p>
+                            <div class="sport-font" style="font-size: 14px;">— ${t.nama_pelanggan}</div>
+                        </div>
+                    `).join('');
+                }
+
+                // 10. FAQ
+                if (faqData) {
+                    document.getElementById('faqList').innerHTML = faqData.map(f => `
+                        <div class="usp-card" style="padding: 30px;">
+                            <h4 class="sport-font" style="font-size: 18px; margin-bottom: 10px; color: var(--accent);">${f.question}</h4>
+                            <p class="usp-desc">${f.answer}</p>
+                        </div>
+                    `).join('');
                 }
 
                 window.openPopup = (id) => {
                     const p = productMap[id];
-                    const categoryObj = catData.find(c => c.kode_filter === p.kategori);
                     
                     document.getElementById('popup-img').src = p.image_url;
                     document.getElementById('popup-name').innerText = p.nama_produk;
