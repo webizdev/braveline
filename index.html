@@ -173,7 +173,12 @@
             cursor: pointer;
             transition: 0.3s;
         }
-        .filter-btn.active, .filter-btn:hover { background: var(--primary); border-color: var(--primary); box-shadow: var(--neon-shadow); }
+        .filter-btn.active, .filter-btn:hover { 
+            background: var(--primary); 
+            border-color: var(--accent); 
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.4); 
+            transform: translateY(-2px);
+        }
 
         .catalog-grid {
             display: grid;
@@ -386,6 +391,8 @@
                     <!-- Dynamic Filters -->
                 </div>
 
+                <p id="katalog-count" class="sport-font" style="text-align: center; color: var(--accent); margin-bottom: 30px; font-size: 18px; letter-spacing: 1px;"></p>
+
                 <div class="catalog-grid" id="katalogGrid">
                     <!-- Skeletons for Flicker-free loading -->
                     <div class="catalog-item skeleton"></div>
@@ -393,37 +400,26 @@
                     <div class="catalog-item skeleton"></div>
                     <div class="catalog-item skeleton"></div>
                 </div>
+
+                <!-- Empty State CTA -->
+                <div id="katalog-empty-cta" style="display: none; text-align: center; padding: 60px 20px; background: var(--bg-card); border-radius: 12px; border: 1px dashed var(--glass-border); margin-top: 20px;">
+                    <h3 class="sport-font" style="font-size: 24px; margin-bottom: 20px;">DESAIN BELUM TERSEDIA</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 30px;">Punya referensi desain sendiri? Kami bisa buatkan secara gratis!</p>
+                    <a href="https://wa.me/6285199227070?text=Halo%20Braveline%2C%20saya%20punya%20desain%20sendiri%20mau%20order" 
+                       class="btn btn-primary" style="background: var(--accent); color: var(--bg-dark);">
+                       🎨 Punya Desain Sendiri? Chat Sekarang
+                    </a>
+                </div>
             </div>
         </section>
 
         <!-- Pricing -->
-        <section class="pricing">
+        <section class="pricing" id="pricing">
             <div class="container">
                 <h2 class="section-title">HARGA <span class="highlight">TRANSPARAN</span></h2>
                 <p class="section-subtitle">Pilihan paket hemat langsung dari pusat produksi</p>
-                <div class="pricing-grid">
-                    <div class="pricing-card">
-                        <div class="sport-font" style="font-size: 20px; color: var(--text-muted);">PAKET ATASAN</div>
-                        <div class="price-val">70<span style="font-size: 20px;">RB</span></div>
-                        <ul class="price-list">
-                            <li>Jersey Atasan Full Printing</li>
-                            <li>Bahan Premium Dryfit</li>
-                            <li>Bisa Order Satuan</li>
-                            <li>Gratis Tambah Nama/Logo</li>
-                        </ul>
-                        <a href="https://wa.me/6285199227070" class="btn btn-outline" style="width: 100%; justify-content: center;">Pilih Paket</a>
-                    </div>
-                    <div class="pricing-card featured">
-                        <div class="sport-font" style="font-size: 20px;">PAKET SETELAN</div>
-                        <div class="price-val">110<span style="font-size: 20px;">RB</span></div>
-                        <ul class="price-list">
-                            <li>Setelan (Atasan + Celana)</li>
-                            <li>Full Printing Atasan</li>
-                            <li>Kualitas Jahit Standar Atlet</li>
-                            <li>Produksi Tepat Waktu</li>
-                        </ul>
-                        <a href="https://wa.me/6285199227070" class="btn btn-primary" style="width: 100%; justify-content: center; background: var(--accent); color: var(--bg-dark);">Beli Sekarang</a>
-                    </div>
+                <div class="pricing-grid" id="dyn_pricing_grid">
+                    <!-- Dynamic Pricing -->
                 </div>
             </div>
         </section>
@@ -433,30 +429,34 @@
             <div class="container">
                 <h2 class="section-title">CARA <span class="highlight">ORDER</span></h2>
                 <p class="section-subtitle">Simpel dan transparan tanpa ribet</p>
-                <div class="process-grid">
-                    <div class="step">
-                        <div class="step-num">1</div>
-                        <h3 class="sport-font">CHAT ADMIN</h3>
-                        <p style="font-size: 13px; color: var(--text-muted);">Konsultasi desain dan kebutuhan bahan</p>
-                    </div>
-                    <div class="step">
-                        <div class="step-num">2</div>
-                        <h3 class="sport-font">ACC DESAIN</h3>
-                        <p style="font-size: 13px; color: var(--text-muted);">Lihat mockup jersey Anda sebelum cetak</p>
-                    </div>
-                    <div class="step">
-                        <div class="step-num">3</div>
-                        <h3 class="sport-font">PRODUKSI</h3>
-                        <p style="font-size: 13px; color: var(--text-muted);">Jersey diproses langsung di pabrik kami</p>
-                    </div>
-                    <div class="step">
-                        <div class="step-num">4</div>
-                        <h3 class="sport-font">PENGIRIMAN</h3>
-                        <p style="font-size: 13px; color: var(--text-muted);">Barang sampai dengan aman di lokasi Anda</p>
-                    </div>
+                <div class="process-grid" id="dyn_process_grid">
+                    <!-- Dynamic Process -->
                 </div>
             </div>
         </section>
+
+        <!-- Testimonials -->
+        <section class="section-pad" id="testimonials" style="background: rgba(255,255,255,0.02);">
+            <div class="container">
+                <h2 class="section-title">APA KATA <span class="highlight">MEREKA?</span></h2>
+                <p class="section-subtitle">Ribuan tim telah mempercayakan jersey mereka kepada kami</p>
+                <div class="usp-grid" id="dyn_testimonial_grid">
+                    <!-- Dynamic Testimonials (using same grid as USP for consistency) -->
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ -->
+        <section class="section-pad" id="faq">
+            <div class="container">
+                <h2 class="section-title">PERTANYAAN <span class="highlight">UMUM</span></h2>
+                <p class="section-subtitle">Hal-hal yang sering ditanyakan pelanggan kami</p>
+                <div class="pricing-grid" id="dyn_faq_grid" style="grid-template-columns: 1fr; max-width: 800px; margin: 0 auto; gap: 15px;">
+                    <!-- Dynamic FAQ -->
+                </div>
+            </div>
+        </section>
+
     </main>
 
     <!-- Footer -->
@@ -515,103 +515,205 @@
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBnbHRzeXJ0ZHV2ZGRwY2RsY2hrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI4MTQ1MjcsImV4cCI6MjA4ODM5MDUyN30.dLVNHeff4wpR3XFg_KwG43x5XEaT0CC2XN4ljxt00C4';
         const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        document.addEventListener('DOMContentLoaded', async () => {
-            // Remove no-js class
-            document.body.classList.remove('no-js');
-
+        async function loadDynamicContent() {
             try {
-                // Fetch Kategori Data
-                const { data: catData, error: catError } = await supabaseClient
-                    .from('braveline_kategori')
-                    .select('*')
-                    .eq('aktif', true)
-                    .order('urutan', { ascending: true });
+                // 1. Site Settings
+                const { data: settings } = await supabaseClient.from('braveline_site_settings').select('*');
+                const settingsMap = {};
+                if (settings) settings.forEach(s => settingsMap[s.key] = s.value);
 
-                // Fetch ALL Katalog Products
-                const { data: katalogData, error: katalogError } = await supabaseClient
-                    .from('braveline_katalog')
-                    .select('*')
-                    .order('created_at', { ascending: true });
+                const waNum = settingsMap['wa_number'] || '6285199227070';
+                const waUrl = (text) => `https://wa.me/${waNum}?text=${encodeURIComponent(text || 'Halo Braveline, saya mau tanya-tanya')}`;
+                
+                document.querySelectorAll('a[href^="https://wa.me/"]').forEach(el => {
+                    const originalHref = el.getAttribute('href');
+                    const text = originalHref.includes('text=') ? decodeURIComponent(originalHref.split('text=')[1]) : '';
+                    el.href = waUrl(text);
+                });
 
-                // Render Filter Buttons
-                const filterContainer = document.getElementById('katalogFilter');
-                if (filterContainer && catData) {
-                    filterContainer.innerHTML = catData.map((cat, idx) => `
+                if (settingsMap['site_favicon_url']) {
+                    document.getElementById('dyn_favicon').href = settingsMap['site_favicon_url'];
+                    document.getElementById('dyn_apple_icon').href = settingsMap['site_favicon_url'];
+                }
+
+                // 2. Hero
+                const { data: heroData } = await supabaseClient.from('braveline_hero').select('*');
+                if (heroData) {
+                    heroData.forEach(h => {
+                        if (h.key === 'hero_title_line1') document.getElementById('dyn_hero_title1').innerText = h.value;
+                        if (h.key === 'hero_title_line2') document.getElementById('dyn_hero_title2').innerText = h.value;
+                        if (h.key === 'hero_title_line3') document.getElementById('dyn_hero_title3').innerText = h.value;
+                        if (h.key === 'hero_subtitle') document.getElementById('dyn_hero_subtitle').innerText = h.value;
+                    });
+                }
+
+                // 3. Trust Bar
+                const { data: trustData } = await supabaseClient.from('braveline_trust_bar').select('*').order('urutan', { ascending: true });
+                if (trustData && trustData.length > 0) {
+                    const html = trustData.map(t => `<div class="trust-item">${t.icon} <span>${t.highlight_text}</span> ${t.description_text}</div>`).join('');
+                    document.getElementById('trustbar-container').innerHTML = html + html;
+                }
+
+                // 4. USP
+                const { data: uspData } = await supabaseClient.from('braveline_usp_cards').select('*').order('urutan', { ascending: true });
+                if (uspData) {
+                    document.getElementById('dyn_usp_grid').innerHTML = uspData.map(u => `
+                        <div class="usp-card">
+                            <div class="usp-icon">${u.icon}</div>
+                            <h3 class="usp-title">${u.title}</h3>
+                            <p class="usp-desc">${u.description}</p>
+                        </div>
+                    `).join('');
+                }
+
+                // 5. Pricing
+                const { data: prData } = await supabaseClient.from('braveline_harga_paket').select('*').order('urutan', { ascending: true });
+                if (prData) {
+                    document.getElementById('dyn_pricing_grid').innerHTML = prData.map(p => `
+                        <div class="pricing-card ${p.is_featured ? 'featured' : ''}">
+                            <div class="sport-font" style="font-size: 20px; color: ${p.is_featured ? '#fff' : 'var(--text-muted)'};">${p.nama_paket}</div>
+                            <div class="price-val">${Math.floor(p.harga_ecer/1000)}<span style="font-size: 20px;">RB</span></div>
+                            <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">Lusin: Rp ${parseInt(p.harga_lusin).toLocaleString()}${p.satuan_lusin}</p>
+                            <ul class="price-list">
+                                ${p.fitur_json ? p.fitur_json.map(f => `<li>${f}</li>`).join('') : '<li>Premium Quality</li>'}
+                            </ul>
+                            <a href="${waUrl('Halo Braveline, saya tertarik paket ' + p.nama_paket)}" class="btn ${p.is_featured ? 'btn-primary' : 'btn-outline'}" 
+                               style="width: 100%; justify-content: center; ${p.is_featured ? 'background: var(--accent); color: var(--bg-dark);' : ''}">
+                                ${p.is_featured ? 'Beli Sekarang' : 'Pilih Paket'}
+                            </a>
+                        </div>
+                    `).join('');
+                }
+
+                // 6. Process
+                const { data: procData } = await supabaseClient.from('braveline_proses_order').select('*').order('urutan', { ascending: true });
+                if (procData) {
+                    document.getElementById('dyn_process_grid').innerHTML = procData.map(s => `
+                        <div class="step">
+                            <div class="step-num">${s.urutan}</div>
+                            <h3 class="sport-font">${s.title}</h3>
+                            <p style="font-size: 13px; color: var(--text-muted);">${s.description}</p>
+                        </div>
+                    `).join('');
+                }
+
+                // 7. Testimonials
+                const { data: testData } = await supabaseClient.from('braveline_testimonials').select('*').order('created_at', { descending: true }).limit(3);
+                if (testData && testData.length > 0) {
+                    document.getElementById('dyn_testimonial_grid').innerHTML = testData.map(t => `
+                        <div class="usp-card">
+                            <div style="color: var(--accent); font-size: 24px; margin-bottom: 15px;">★★★★★</div>
+                            <p class="usp-desc" style="font-style: italic; margin-bottom: 20px;">"${t.quote}"</p>
+                            <h4 class="sport-font" style="font-size: 16px;">${t.author}</h4>
+                            <span style="font-size: 12px; color: var(--text-muted);">${t.organization}</span>
+                        </div>
+                    `).join('');
+                } else {
+                    document.getElementById('testimonials').style.display = 'none';
+                }
+
+                // 8. FAQ
+                const { data: faqData } = await supabaseClient.from('braveline_faq').select('*').order('urutan', { ascending: true });
+                if (faqData && faqData.length > 0) {
+                    document.getElementById('dyn_faq_grid').innerHTML = faqData.map(f => `
+                        <div class="usp-card" style="padding: 25px; text-align: left;">
+                            <h4 class="sport-font" style="font-size: 18px; margin-bottom: 10px; color: var(--accent);">${f.question}</h4>
+                            <p class="usp-desc">${f.answer}</p>
+                        </div>
+                    `).join('');
+                } else {
+                    document.getElementById('faq').style.display = 'none';
+                }
+
+                // 9. Katalog & Filter
+                const { data: catData } = await supabaseClient.from('braveline_kategori').select('*').eq('aktif', true).order('urutan', { ascending: true });
+                const { data: katalogData } = await supabaseClient.from('braveline_katalog').select('*').order('created_at', { ascending: true });
+
+                const productMap = {};
+                if (catData && katalogData) {
+                    document.getElementById('katalogFilter').innerHTML = catData.map((cat, idx) => `
                         <button class="filter-btn ${idx === 0 ? 'active' : ''}" data-cat="${cat.kode_filter}">
                             ${cat.emoji} ${cat.nama}
                         </button>
                     `).join('');
-                }
 
-                // Render Library Map
-                const productMap = {};
-                const katalogGrid = document.getElementById('katalogGrid');
-                if (katalogGrid && katalogData) {
-                    katalogGrid.innerHTML = katalogData.map(p => {
+                    document.getElementById('katalogGrid').innerHTML = katalogData.map(p => {
                         productMap[p.id] = p;
-                        const catCode = catData?.find(c => c.nama === p.kategori)?.kode_filter || '0';
-                        return `
-                            <div class="catalog-item" data-cat="${catCode}" onclick="openPopup('${p.id}')">
-                                <img src="${p.image_url}" loading="lazy" alt="${p.nama_produk}">
-                            </div>
-                        `;
+                        // Synchronize: p.kategori contains the kode_filter string (e.g. "0")
+                        return `<div class="catalog-item" data-cat="${p.kategori}" onclick="openPopup('${p.id}')"><img src="${p.image_url}" loading="lazy"></div>`;
                     }).join('');
+
+                    document.querySelectorAll('.filter-btn').forEach(btn => {
+                        btn.onclick = () => {
+                            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                            btn.classList.add('active');
+                            const filterVal = btn.dataset.cat;
+                            let count = 0;
+                            
+                            document.querySelectorAll('.catalog-item').forEach(item => {
+                                if(filterVal === 'semua' || item.dataset.cat === filterVal) {
+                                    item.style.display = 'block';
+                                    count++;
+                                } else {
+                                    item.style.display = 'none';
+                                }
+                            });
+
+                            document.getElementById('katalog-count').innerText = `Menampilkan ${count} Desain`;
+                            const emptyCta = document.getElementById('katalog-empty-cta');
+                            const grid = document.getElementById('katalogGrid');
+                            
+                            if (count === 0) {
+                                emptyCta.style.display = 'block';
+                                grid.style.display = 'none';
+                            } else {
+                                emptyCta.style.display = 'none';
+                                grid.style.display = 'grid';
+                            }
+                        }
+                    });
+
+                    // Trigger Futsal by default (usually first filter)
+                    if (document.querySelector('.filter-btn')) {
+                        document.querySelector('.filter-btn').click();
+                    }
                 }
 
-                // Filter Logic
                 window.openPopup = (id) => {
                     const p = productMap[id];
+                    const categoryObj = catData.find(c => c.kode_filter === p.kategori);
+                    
                     document.getElementById('popup-img').src = p.image_url;
                     document.getElementById('popup-name').innerText = p.nama_produk;
-                    document.getElementById('popup-kategori').innerText = p.kategori;
+                    document.getElementById('popup-kategori').innerText = categoryObj ? categoryObj.nama : 'JERSEY CUSTOM';
                     document.getElementById('popup-promo').innerText = p.tag_promo || 'JERSEY CUSTOM';
-                    document.getElementById('popup-btn-wa').href = `https://wa.me/6285199227070?text=Halo%20Braveline%2C%20saya%20tertarik%20dengan%20produk%3A%20${encodeURIComponent(p.nama_produk)}`;
+                    document.getElementById('popup-btn-wa').href = waUrl('Halo Braveline, saya tertarik dengan produk: ' + p.nama_produk);
                     document.getElementById('product-popup-overlay').classList.add('active');
                 };
 
-                document.getElementById('popup-close').onclick = () => document.getElementById('product-popup-overlay').classList.remove('active');
+                // Footer Info
+                if (settingsMap['footer_description']) document.querySelector('.footer p').innerText = settingsMap['footer_description'];
+                if (settingsMap['footer_address']) document.querySelectorAll('.footer-link')[4].innerText = `📍 ${settingsMap['footer_address']}`;
+                if (settingsMap['footer_phone']) document.querySelectorAll('.footer-link')[5].innerText = `📞 ${settingsMap['footer_phone']}`;
 
-                // Filter Buttons Click
-                document.querySelectorAll('.filter-btn').forEach(btn => {
-                    btn.onclick = () => {
-                        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                        btn.classList.add('active');
-                        const cat = btn.dataset.cat;
-                        document.querySelectorAll('.catalog-item').forEach(item => {
-                            if(cat === 'semua' || item.dataset.cat === cat) item.classList.remove('hidden');
-                            else item.classList.add('hidden');
-                        });
-                    }
-                });
+            } catch(e) { console.error('Load Error:', e); }
+        }
 
-                // Trigger Initial Filter
-                if(catData) document.querySelector('.filter-btn').click();
-
-            } catch(e) { console.error(e); }
-        });
-
-        // CountDown Logic
-        (function(){
-            let target = new Date();
-            target.setDate(target.getDate() + 3); // 3 days promo
+        document.addEventListener('DOMContentLoaded', () => {
+            document.body.classList.remove('no-js');
+            loadDynamicContent();
+            document.getElementById('popup-close').onclick = () => document.getElementById('product-popup-overlay').classList.remove('active');
             
-            function update() {
-                let now = new Date();
-                let diff = target - now;
-                if(diff <= 0) return;
-                
-                let d = Math.floor(diff/86400000);
-                let h = Math.floor((diff%86400000)/3600000);
-                let m = Math.floor((diff%3600000)/60000);
-                let s = Math.floor((diff%60000)/1000);
-                
-                document.getElementById('cd-hari').innerText = d < 10 ? '0'+d : d;
-                document.getElementById('cd-jam').innerText = h < 10 ? '0'+h : h;
-                document.getElementById('cd-menit').innerText = m < 10 ? '0'+m : m;
-                document.getElementById('cd-detik').innerText = s < 10 ? '0'+s : s;
-            }
-            setInterval(update, 1000);
-        })();
+            // Countdown
+            let target = new Date(); target.setDate(target.getDate() + 3);
+            setInterval(() => {
+                let diff = target - new Date(); if(diff <= 0) return;
+                document.getElementById('cd-hari').innerText = String(Math.floor(diff/86400000)).padStart(2,'0');
+                document.getElementById('cd-jam').innerText = String(Math.floor((diff%86400000)/3600000)).padStart(2,'0');
+                document.getElementById('cd-menit').innerText = String(Math.floor((diff%3600000)/60000)).padStart(2,'0');
+                document.getElementById('cd-detik').innerText = String(Math.floor((diff%60000)/1000)).padStart(2,'0');
+            }, 1000);
+        });
     </script>
 </body>
 </html>
